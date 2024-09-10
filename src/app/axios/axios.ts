@@ -8,7 +8,7 @@ const api = axios.create({
 
 export const fetchUsers = createAsyncThunk(
   'fetchUsers',
-  async (name: string) => {
+  async () => {
     const users = await api.get(`users`);
     return (await users.data) as User[];
   }

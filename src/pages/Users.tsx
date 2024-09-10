@@ -13,12 +13,12 @@ export const Users = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    const loadingData = (name: string, email: string, phone: string) => {
-      const users = fetchUsers(name)
+    const loadingData = () => {
+      const users = fetchUsers()
       dispatch(users)
     }
 
-    loadingData(name || "", email || "", phone || "")
+    loadingData()
   }, [
     searchParams.get("name"),
     searchParams.get("email"),
