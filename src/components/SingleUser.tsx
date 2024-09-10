@@ -5,6 +5,7 @@ type Props = {
 }
 
 export const SingleUser: React.FC<Props> = ({ user }: Props) => {
+  
   return (
     <tr>
       <td>{user.name}</td>

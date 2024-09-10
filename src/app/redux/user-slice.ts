@@ -1,7 +1,7 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit"
 import type { User } from "../../types/user"
-import { getUsers } from "../axios/axios";
+import { fetchUsers } from "../axios/axios";
 
 
 interface State {
@@ -21,17 +21,17 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getUsers.pending, (state) => {
+    builder.addCase(fetchUsers.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(
-      getUsers.fulfilled,
+      fetchUsers.fulfilled,
       (state, action: PayloadAction<User[]>) => {
         state.value = action.payload;
         state.isLoading = false;
       }
     );
-    builder.addCase(getUsers.rejected, (state) => {
+    builder.addCase(fetchUsers.rejected, (state) => {
       state.error = true;
     });
   }

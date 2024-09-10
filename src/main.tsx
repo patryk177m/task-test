@@ -2,8 +2,8 @@ import React from "react"
 import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
 import "./index.css"
-import { Users } from "./pages/Users"
 import store from "./app/redux/store"
+import App from "./App"
 
 const container = document.getElementById("root")
 
@@ -13,7 +13,7 @@ if (container) {
   root.render(
     <React.StrictMode>
       <Provider store={store}>
-        <Users />
+        <App />
       </Provider>
     </React.StrictMode>,
   )

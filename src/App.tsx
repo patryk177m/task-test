@@ -1,10 +1,15 @@
 import "./App.css"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Users } from "./pages/Users";
 
 const App = () => {
   return (
-    <div className="App">
-      <h1>Cześć</h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="users" element={<Users />} />
+        <Route path="users/:name?:email?:phone?" element={<Users />} />
+      </Routes>
+    </Router>
   )
 }
 
