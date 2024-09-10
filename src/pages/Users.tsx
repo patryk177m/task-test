@@ -3,11 +3,11 @@ import { fetchUsers } from "../app/axios/axios"
 import { SingleUser } from "../components/SingleUser"
 import { useAppDispatch, useAppSelector } from "../app/redux/hooks"
 import { Filter } from "../components/Filter"
-import { useParams, useSearchParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import { filtered } from "../utils/filter"
 
 export const Users = () => {
-  const { name, email, phone } = useParams()
+  
   const [searchParams] = useSearchParams()
   const users = useAppSelector(state => state.users.value)
   const dispatch = useAppDispatch()
