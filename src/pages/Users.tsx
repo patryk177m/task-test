@@ -8,15 +8,13 @@ import { useSearchParams } from "react-router-dom"
 import { filtered } from "../utils/filter"
 import {
   Paper,
-  styled,
   Table,
   TableBody,
   TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material"
-import TableCell, { tableCellClasses } from "@mui/material/TableCell"
-import { alignStyle } from "../styles/mui-styles"
+import { alignStyle, StyledTableCell } from "../styles/mui-styles"
 import { SkeletonUsers } from "../components/SkeletonUsers"
 import { getCount } from "../utils/counter"
 
@@ -24,18 +22,6 @@ export const Users = () => {
   const [searchParams] = useSearchParams()
   const users = useAppSelector(state => state.users)
   const dispatch = useAppDispatch()
-
-  //style MUI
-
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }))
 
   useEffect(() => {
     const loadingData = () => {
@@ -60,13 +46,14 @@ export const Users = () => {
   )
 
   return (
-    <TableContainer className="tablecontainer" component={Paper}>
+    <TableContainer
+      sx={{ maxWidth: 1440 }}
+      aria-label="customized table"
+      className="container"
+      component={Paper}
+    >
       <Filter />
-      <Table
-        sx={{ maxWidth: 1440 }}
-        aria-label="customized table"
-        className="container"
-      >
+      <Table>
         <TableHead>
           <TableRow>
             <StyledTableCell align={alignStyle}>Name</StyledTableCell>

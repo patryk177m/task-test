@@ -3,8 +3,10 @@ import { useSearchParams } from "react-router-dom"
 import { getSearchWith } from "../utils/SearchHelper"
 import {
   Box,
+  Paper,
   Table,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   TextField,
@@ -42,114 +44,117 @@ export const Filter = () => {
   const handlePhoneChange = handleInputChange("phone", setPhoneError)
 
   return (
-    <Table
-      className="container"
+    <TableContainer
       sx={{ maxWidth: 1440 }}
       aria-label="customized table"
+      className="container"
+      component={Paper}
     >
-      <TableHead>
-        <TableRow>
-          <TableCell align={alignStyle}>
-            <Box
-              component="form"
-              sx={{ "& > :not(style)": { m: 1, width: widthInputSearch } }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
-                id="filled-basic"
-                label="Search name"
-                variant="filled"
-                type="search"
-                value={searchParams.get("name") || ""}
-                onChange={handleNameChange}
-                error={nameError}
-                inputProps={{
-                  pattern: "[A-Za-z ]+",
-                }}
-                helperText={
-                  nameError
-                    ? "Please enter your name (letters and spaces only)"
-                    : ""
-                }
-              />
-            </Box>
-          </TableCell>
-          <TableCell align={alignStyle}>
-            <Box
-              component="form"
-              sx={{ "& > :not(style)": { m: 1, width: widthInputSearch } }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
-                id="filled-basic"
-                label="Search User name"
-                variant="filled"
-                type="search"
-                value={searchParams.get("username") || ""}
-                onChange={handleUserNameChange}
-                error={userNameError}
-                inputProps={{
-                  pattern: "[A-Za-z ]+",
-                }}
-                helperText={
-                  userNameError
-                    ? "Please enter your user name (letters and spaces only)"
-                    : ""
-                }
-              />
-            </Box>
-          </TableCell>
-          <TableCell align={alignStyle}>
-            <Box
-              component="form"
-              sx={{ "& > :not(style)": { m: 1, width: widthInputSearch } }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
-                id="filled-basic"
-                label="Search email"
-                variant="filled"
-                type="search"
-                value={searchParams.get("email") || ""}
-                onChange={e => {
-                  const nextParams = getSearchWith(searchParams, {
-                    email: e.target.value || null,
-                  })
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell align={alignStyle}>
+              <Box
+                component="form"
+                sx={{ "& > :not(style)": { m: 1, width: widthInputSearch } }}
+                noValidate
+                autoComplete="off"
+              >
+                <TextField
+                  id="filled-basic"
+                  label="Search name"
+                  variant="filled"
+                  type="search"
+                  value={searchParams.get("name") || ""}
+                  onChange={handleNameChange}
+                  error={nameError}
+                  inputProps={{
+                    pattern: "[A-Za-z ]+",
+                  }}
+                  helperText={
+                    nameError
+                      ? "Please enter your name (letters and spaces only)"
+                      : ""
+                  }
+                />
+              </Box>
+            </TableCell>
+            <TableCell align={alignStyle}>
+              <Box
+                component="form"
+                sx={{ "& > :not(style)": { m: 1, width: widthInputSearch } }}
+                noValidate
+                autoComplete="off"
+              >
+                <TextField
+                  id="filled-basic"
+                  label="Search User name"
+                  variant="filled"
+                  type="search"
+                  value={searchParams.get("username") || ""}
+                  onChange={handleUserNameChange}
+                  error={userNameError}
+                  inputProps={{
+                    pattern: "[A-Za-z ]+",
+                  }}
+                  helperText={
+                    userNameError
+                      ? "Please enter your user name (letters and spaces only)"
+                      : ""
+                  }
+                />
+              </Box>
+            </TableCell>
+            <TableCell align={alignStyle}>
+              <Box
+                component="form"
+                sx={{ "& > :not(style)": { m: 1, width: widthInputSearch } }}
+                noValidate
+                autoComplete="off"
+              >
+                <TextField
+                  id="filled-basic"
+                  label="Search email"
+                  variant="filled"
+                  type="search"
+                  value={searchParams.get("email") || ""}
+                  onChange={e => {
+                    const nextParams = getSearchWith(searchParams, {
+                      email: e.target.value || null,
+                    })
 
-                  setSearchParams(new URLSearchParams(nextParams))
-                }}
-              />
-            </Box>
-          </TableCell>
-          <TableCell align={alignStyle}>
-            <Box
-              component="form"
-              sx={{ "& > :not(style)": { m: 1, width: widthInputSearch } }}
-              noValidate
-              autoComplete="off"
-            >
-              <TextField
-                id="filled-basic"
-                label="Search phone"
-                variant="filled"
-                type="search"
-                value={searchParams.get("phone") || ""}
-                onChange={handlePhoneChange}
-                error={phoneError}
-                inputProps={{
-                  pattern: "[0-9 ]+",
-                }}
-                helperText={
-                  phoneError ? "Please enter your phone (number only)" : ""
-                }
-              />
-            </Box>
-          </TableCell>
-        </TableRow>
-      </TableHead>
-    </Table>
+                    setSearchParams(new URLSearchParams(nextParams))
+                  }}
+                />
+              </Box>
+            </TableCell>
+            <TableCell align={alignStyle}>
+              <Box
+                component="form"
+                sx={{ "& > :not(style)": { m: 1, width: widthInputSearch } }}
+                noValidate
+                autoComplete="off"
+              >
+                <TextField
+                  id="filled-basic"
+                  label="Search phone"
+                  variant="filled"
+                  type="search"
+                  value={searchParams.get("phone") || ""}
+                  onChange={handlePhoneChange}
+                  error={phoneError}
+                  inputProps={{
+                    pattern: "[0-9 ]+",
+                  }}
+                  helperText={
+                    phoneError ? "Please enter your phone (number only)" : ""
+                  }
+                />
+              </Box>
+            </TableCell>
+          </TableRow>
+        </TableHead>
+      </Table>
+    </TableContainer>
   )
 }
