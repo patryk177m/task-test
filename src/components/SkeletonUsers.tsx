@@ -35,6 +35,9 @@ export const SkeletonUsers = () => {
       <StyledTableCell align={alignStyle}>
         <Skeleton animation={animation} />
       </StyledTableCell>
+      <StyledTableCell align={alignStyle}>
+        <Skeleton animation={animation} />
+      </StyledTableCell>
     </StyledTableRow>
   )
 }
