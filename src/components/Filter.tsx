@@ -9,10 +9,26 @@ import {
   TableRow,
   TextField,
 } from "@mui/material"
-import { alignStyle } from "../styles/mui-styles"
+import { alignStyle, widthInputSearch } from "../styles/mui-styles"
+import { useState } from "react"
 
 export const Filter = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [nameError, setNameError] = useState(false);
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nextParams = getSearchWith(searchParams, {
+      name: e.target.value || null,
+    })
+
+    setSearchParams(new URLSearchParams(nextParams));
+
+    if (e.target.validity.valid) {
+      setNameError(false);
+    } else {
+      setNameError(true);
+    }
+  };
 
   return (
     <Table
@@ -25,7 +41,7 @@ export const Filter = () => {
           <TableCell align={alignStyle}>
             <Box
               component="form"
-              sx={{ "& > :not(style)": { m: 1, width: "50ch" } }}
+              sx={{ "& > :not(style)": { m: 1, width: widthInputSearch } }}
               noValidate
               autoComplete="off"
             >
@@ -35,20 +51,23 @@ export const Filter = () => {
                 variant="filled"
                 type="search"
                 value={searchParams.get("name") || ""}
-                onChange={e => {
-                  const nextParams = getSearchWith(searchParams, {
-                    name: e.target.value || null,
-                  })
-
-                  setSearchParams(new URLSearchParams(nextParams))
+                onChange={handleNameChange}
+                error={nameError}
+                inputProps={{
+                  pattern: "[A-Za-z ]+",
                 }}
+                helperText={
+                  nameError
+                    ? "Please enter your name (letters and spaces only)"
+                    : ""
+                }
               />
             </Box>
           </TableCell>
           <TableCell align={alignStyle}>
             <Box
               component="form"
-              sx={{ "& > :not(style)": { m: 1, width: "50ch" } }}
+              sx={{ "& > :not(style)": { m: 1, width: widthInputSearch } }}
               noValidate
               autoComplete="off"
             >
@@ -71,7 +90,7 @@ export const Filter = () => {
           <TableCell align={alignStyle}>
             <Box
               component="form"
-              sx={{ "& > :not(style)": { m: 1, width: "50ch" } }}
+              sx={{ "& > :not(style)": { m: 1, width: widthInputSearch } }}
               noValidate
               autoComplete="off"
             >

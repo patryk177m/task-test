@@ -1,4 +1,4 @@
-import '../styles/global.css';
+import "../styles/global.css"
 import { useEffect } from "react"
 import { fetchUsers } from "../app/axios/axios"
 import { SingleUser } from "../components/SingleUser"
@@ -6,14 +6,23 @@ import { useAppDispatch, useAppSelector } from "../app/redux/hooks"
 import { Filter } from "../components/Filter"
 import { useSearchParams } from "react-router-dom"
 import { filtered } from "../utils/filter"
-import { Paper, styled, Table, TableBody, TableContainer, TableHead, TableRow } from "@mui/material"
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import {
+  Paper,
+  styled,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material"
+import TableCell, { tableCellClasses } from "@mui/material/TableCell"
 import { alignStyle } from "../styles/mui-styles"
+import { SkeletonUsers } from "../components/SkeletonUsers"
+import { getCount } from "../utils/counter"
 
 export const Users = () => {
-  
   const [searchParams] = useSearchParams()
-  const users = useAppSelector(state => state.users.value)
+  const users = useAppSelector(state => state.users)
   const dispatch = useAppDispatch()
 
   //style MUI
@@ -26,7 +35,7 @@ export const Users = () => {
     [`&.${tableCellClasses.body}`]: {
       fontSize: 14,
     },
-  }));
+  }))
 
   useEffect(() => {
     const loadingData = () => {
@@ -45,13 +54,17 @@ export const Users = () => {
     searchParams.get("name"),
     searchParams.get("email"),
     searchParams.get("phone"),
-    users,
+    users.value,
   )
 
   return (
     <TableContainer className="tablecontainer" component={Paper}>
       <Filter />
-      <Table  sx={{ maxWidth: 1440 }} aria-label="customized table" className="container">
+      <Table
+        sx={{ maxWidth: 1440 }}
+        aria-label="customized table"
+        className="container"
+      >
         <TableHead>
           <TableRow>
             <StyledTableCell align={alignStyle}>Name</StyledTableCell>
@@ -60,9 +73,12 @@ export const Users = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {showUsers.map(user => (
-            <SingleUser key={user.id} user={user} />
-          ))}
+          {/* {users.value.length <= 0 && !users.isLoading && (
+            <TableRow>This person does not exist in the database</TableRow>
+          )} */}
+          {users.isLoading && users.value.length === 0
+            ? getCount(10).map(count => <SkeletonUsers key={count} />)
+            : showUsers.map(user => <SingleUser key={user.id} user={user} />)}
         </TableBody>
       </Table>
     </TableContainer>
