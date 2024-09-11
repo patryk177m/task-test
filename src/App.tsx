@@ -6,8 +6,8 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="users" element={<Users />} />
-        <Route path="users/:name?:username?:email?:phone?" element={<Users />} />
+        <Route path="/" element={<Users />} />
+        <Route path="/:name?:username?:email?:phone?" element={<Users />} />
       </Routes>
     </Router>
   )
