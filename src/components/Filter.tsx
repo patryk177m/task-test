@@ -13,53 +13,33 @@ import { alignStyle, widthInputSearch } from "../styles/mui-styles"
 import { useState } from "react"
 
 export const Filter = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [nameError, setNameError] = useState(false);
-  const [userNameError, setUserNameError] = useState(false);
-  const [phoneError, setPhoneError] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [nameError, setNameError] = useState(false)
+  const [userNameError, setUserNameError] = useState(false)
+  const [phoneError, setPhoneError] = useState(false)
 
+  const handleInputChange =
+    (
+      field: "name" | "username" | "phone",
+      setError: React.Dispatch<React.SetStateAction<boolean>>,
+    ) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const nextParams = getSearchWith(searchParams, {
+        [field]: e.target.value || null,
+      })
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const nextParams = getSearchWith(searchParams, {
-      name: e.target.value || null,
-    })
+      setSearchParams(new URLSearchParams(nextParams))
 
-    setSearchParams(new URLSearchParams(nextParams));
-
-    if (e.target.validity.valid) {
-      setNameError(false);
-    } else {
-      setNameError(true);
+      if (e.target.validity.valid) {
+        setError(false)
+      } else {
+        setError(true)
+      }
     }
-  };
 
-  const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const nextParams = getSearchWith(searchParams, {
-      username: e.target.value || null,
-    })
-
-    setSearchParams(new URLSearchParams(nextParams));
-
-    if (e.target.validity.valid) {
-      setUserNameError(false);
-    } else {
-      setUserNameError(true);
-    }
-  };
-
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const nextParams = getSearchWith(searchParams, {
-      phone: e.target.value || null,
-    })
-
-    setSearchParams(new URLSearchParams(nextParams));
-
-    if (e.target.validity.valid) {
-      setPhoneError(false);
-    } else {
-      setPhoneError(true);
-    }
-  };
+  const handleNameChange = handleInputChange("name", setNameError)
+  const handleUserNameChange = handleInputChange("username", setUserNameError)
+  const handlePhoneChange = handleInputChange("phone", setPhoneError)
 
   return (
     <Table
@@ -163,9 +143,7 @@ export const Filter = () => {
                   pattern: "[0-9 ]+",
                 }}
                 helperText={
-                  phoneError
-                    ? "Please enter your phone (number only)"
-                    : ""
+                  phoneError ? "Please enter your phone (number only)" : ""
                 }
               />
             </Box>
