@@ -9,9 +9,9 @@ export const filtered = (
   let filtered = users
   if (name || email || phone) {
     const result = users.filter(
-      (user => user.name.toLowerCase().includes(name?.toLowerCase() || "") &&
-        user.email.toLowerCase().includes(email?.toLowerCase() || "") &&
-        user.phone.toLowerCase().includes(phone?.toLowerCase() || "")) 
+      (user => user.name.toLowerCase().includes(name?.toLowerCase().trim() || "") &&
+        user.email.toLowerCase().includes(email?.toLowerCase().trim() || "") &&
+        user.phone.toLowerCase().includes(phone?.toLowerCase().trim() || "")) 
     )
 
     filtered = result;
