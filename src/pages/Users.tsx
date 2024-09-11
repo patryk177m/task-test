@@ -46,12 +46,14 @@ export const Users = () => {
     loadingData()
   }, [
     searchParams.get("name"),
+    searchParams.get("username"),
     searchParams.get("email"),
     searchParams.get("phone"),
   ])
 
   const showUsers = filtered(
     searchParams.get("name"),
+    searchParams.get("username"),
     searchParams.get("email"),
     searchParams.get("phone"),
     users.value,
@@ -68,6 +70,7 @@ export const Users = () => {
         <TableHead>
           <TableRow>
             <StyledTableCell align={alignStyle}>Name</StyledTableCell>
+            <StyledTableCell align={alignStyle}>User name</StyledTableCell>
             <StyledTableCell align={alignStyle}>email</StyledTableCell>
             <StyledTableCell align={alignStyle}>phone</StyledTableCell>
           </TableRow>

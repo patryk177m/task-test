@@ -15,6 +15,7 @@ import { useState } from "react"
 export const Filter = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [nameError, setNameError] = useState(false);
+  const [userNameError, setUserNameError] = useState(false);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nextParams = getSearchWith(searchParams, {
@@ -27,6 +28,20 @@ export const Filter = () => {
       setNameError(false);
     } else {
       setNameError(true);
+    }
+  };
+
+  const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nextParams = getSearchWith(searchParams, {
+      username: e.target.value || null,
+    })
+
+    setSearchParams(new URLSearchParams(nextParams));
+
+    if (e.target.validity.valid) {
+      setUserNameError(false);
+    } else {
+      setUserNameError(true);
     }
   };
 
@@ -59,6 +74,32 @@ export const Filter = () => {
                 helperText={
                   nameError
                     ? "Please enter your name (letters and spaces only)"
+                    : ""
+                }
+              />
+            </Box>
+          </TableCell>
+          <TableCell align={alignStyle}>
+            <Box
+              component="form"
+              sx={{ "& > :not(style)": { m: 1, width: widthInputSearch } }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="filled-basic"
+                label="Search User name"
+                variant="filled"
+                type="search"
+                value={searchParams.get("username") || ""}
+                onChange={handleUserNameChange}
+                error={userNameError}
+                inputProps={{
+                  pattern: "[A-Za-z ]+",
+                }}
+                helperText={
+                  userNameError
+                    ? "Please enter your user name (letters and spaces only)"
                     : ""
                 }
               />
