@@ -76,9 +76,6 @@ export const Users = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* {users.value.length <= 0 && !users.isLoading && (
-            <TableRow>This person does not exist in the database</TableRow>
-          )} */}
           {users.isLoading && users.value.length === 0
             ? getCount(10).map(count => <SkeletonUsers key={count} />)
             : showUsers.map(user => <SingleUser key={user.id} user={user} />)}

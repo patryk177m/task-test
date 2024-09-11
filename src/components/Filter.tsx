@@ -16,6 +16,8 @@ export const Filter = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [nameError, setNameError] = useState(false);
   const [userNameError, setUserNameError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
+
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const nextParams = getSearchWith(searchParams, {
@@ -42,6 +44,20 @@ export const Filter = () => {
       setUserNameError(false);
     } else {
       setUserNameError(true);
+    }
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const nextParams = getSearchWith(searchParams, {
+      phone: e.target.value || null,
+    })
+
+    setSearchParams(new URLSearchParams(nextParams));
+
+    if (e.target.validity.valid) {
+      setPhoneError(false);
+    } else {
+      setPhoneError(true);
     }
   };
 
@@ -141,13 +157,16 @@ export const Filter = () => {
                 variant="filled"
                 type="search"
                 value={searchParams.get("phone") || ""}
-                onChange={e => {
-                  const nextParams = getSearchWith(searchParams, {
-                    phone: e.target.value || null,
-                  })
-
-                  setSearchParams(new URLSearchParams(nextParams))
+                onChange={handlePhoneChange}
+                error={phoneError}
+                inputProps={{
+                  pattern: "[0-9 ]+",
                 }}
+                helperText={
+                  phoneError
+                    ? "Please enter your phone (number only)"
+                    : ""
+                }
               />
             </Box>
           </TableCell>

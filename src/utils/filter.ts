@@ -2,8 +2,8 @@ import type { User } from "../types/user"
 
 export const filtered = (
   name: string | null,
-  email: string | null,
   username: string | null,
+  email: string | null,
   phone: string | null,
   users: User[],
 ) => {
