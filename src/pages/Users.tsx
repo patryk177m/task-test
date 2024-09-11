@@ -71,8 +71,8 @@ export const Users = () => {
           <TableRow>
             <StyledTableCell align={alignStyle}>Name</StyledTableCell>
             <StyledTableCell align={alignStyle}>User name</StyledTableCell>
-            <StyledTableCell align={alignStyle}>email</StyledTableCell>
-            <StyledTableCell align={alignStyle}>phone</StyledTableCell>
+            <StyledTableCell align={alignStyle}>Email</StyledTableCell>
+            <StyledTableCell align={alignStyle}>Phone</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
