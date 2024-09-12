@@ -17,6 +17,7 @@ import {
 import { alignStyle, StyledTableCell } from "../styles/mui-styles"
 import { SkeletonUsers } from "../components/SkeletonUsers"
 import { getCount } from "../utils/counter"
+import { red } from "@mui/material/colors"
 
 export const Users = () => {
   const [searchParams] = useSearchParams()
@@ -66,6 +67,13 @@ export const Users = () => {
           {users.isLoading && users.value.length === 0
             ? getCount(10).map(count => <SkeletonUsers key={count} />)
             : showUsers.map(user => <SingleUser key={user.id} user={user} />)}
+          {showUsers.length === 0 && (
+            <TableRow>
+              <StyledTableCell align={alignStyle}>
+                <span>No users with the given search criteria.</span>
+              </StyledTableCell>
+            </TableRow>
+          )}
         </TableBody>
       </Table>
     </TableContainer>
